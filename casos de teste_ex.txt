@@ -1,0 +1,223 @@
+Boa noite, Yuri 😄
+Vamos revisar cada um desses temas para que você tenha uma visão clara tanto do **que são**, **para que servem** e **como fazer**.
+Vou explicar de forma organizada e sem enrolação, mas com exemplos práticos para fixar melhor.
+
+---
+
+## **1. Diagrama de Classes (UML)**
+
+**O que é:**
+
+* Mostra a **estrutura estática** do sistema — as classes, atributos, métodos e relações entre elas.
+* É como o "mapa" das entidades do sistema e suas ligações.
+
+**Principais elementos:**
+
+* **Classe:** retângulo dividido em 3 partes (nome, atributos, métodos).
+* **Atributos:** variáveis da classe (nome, tipo, visibilidade).
+* **Métodos:** funções ou operações (nome, parâmetros, tipo de retorno, visibilidade).
+* **Relacionamentos:**
+
+  * Associação (linha simples) → conexão entre classes.
+  * Herança (seta com triângulo vazio) → "é um".
+  * Composição (losango preenchido) → parte obrigatória.
+  * Agregação (losango vazio) → parte opcional.
+
+**Exemplo:**
+
+```
++-------------------+
+|   Pessoa          |
++-------------------+
+| - nome: String    |
+| - idade: int      |
++-------------------+
+| + falar(): void   |
++-------------------+
+```
+
+**Como fazer:**
+
+1. Identificar as entidades (objetos relevantes).
+2. Definir atributos e métodos.
+3. Determinar relacionamentos.
+4. Desenhar usando notação UML.
+
+---
+
+## **2. Diagrama de Atividades (UML)**
+
+**O que é:**
+
+* Mostra o **fluxo de atividades** (processos e decisões).
+* Foca na **lógica do negócio** ou no passo a passo de um processo.
+
+**Principais elementos:**
+
+* **Atividade:** retângulo com cantos arredondados.
+* **Decisão:** losango (com condições nos ramos).
+* **Início:** círculo sólido.
+* **Fim:** círculo com borda.
+* **Fluxo:** setas indicando ordem.
+
+**Exemplo:**
+
+```
+● → [Login] → ◇(Senha correta?)→ [Acessar sistema] → ⊙
+                   ↓Não
+                 [Mensagem de erro] → ⊙
+```
+
+**Como fazer:**
+
+1. Definir o início e o fim do processo.
+2. Listar as atividades em ordem.
+3. Inserir decisões (condições).
+4. Ligar tudo com setas de fluxo.
+
+---
+
+## **3. Diagrama de Sequência (UML)**
+
+**O que é:**
+
+* Mostra **a interação entre objetos ao longo do tempo**.
+* Foco: **quem chama quem** e **em que ordem**.
+
+**Principais elementos:**
+
+* **Objetos:** representados por retângulos no topo.
+* **Linha de vida:** linha tracejada vertical descendo do objeto.
+* **Mensagens:** setas horizontais com nome do método.
+* **Ativações:** retângulo fino na linha de vida (momento de execução).
+
+**Exemplo:**
+
+```
+Usuário      Sistema       BancoDeDados
+   |            |              |
+   | login()    |              |
+   |----------->| validar()    |
+   |            |------------->| consultar()
+   |            |<-------------| resultado
+   |<-----------| resposta     |
+```
+
+**Como fazer:**
+
+1. Listar os participantes (objetos ou atores).
+2. Determinar a ordem das mensagens.
+3. Desenhar da esquerda para a direita.
+4. Representar ativações e retornos.
+
+---
+
+## **4. Diagrama de Estados (UML)**
+
+**O que é:**
+
+* Mostra **os estados possíveis de um objeto** e **as transições entre eles**.
+* Útil para modelar comportamentos de objetos que mudam de estado.
+
+**Principais elementos:**
+
+* **Estado:** retângulo arredondado com nome.
+* **Transição:** seta com evento que causa a mudança.
+* **Início e fim:** mesmo que no diagrama de atividades.
+
+**Exemplo:**
+
+```
+● → [Aguardando pagamento] → (Pagamento confirmado) → [Enviado] → (Entregue) → ⊙
+```
+
+**Como fazer:**
+
+1. Identificar todos os estados relevantes do objeto.
+2. Definir quais eventos causam mudança de estado.
+3. Representar início, transições e fim.
+
+---
+
+## **5. Casos de Teste**
+
+**O que é:**
+
+* Documento que descreve **o que será testado**, **como será testado** e **o resultado esperado**.
+* Garante que o sistema funciona conforme os requisitos.
+
+**Componentes básicos:**
+
+* **ID:** identificação do caso de teste.
+* **Objetivo:** o que está sendo validado.
+* **Pré-condições:** o que deve existir antes do teste.
+* **Passos:** ações para executar o teste.
+* **Resultado esperado:** o que deve acontecer.
+* **Resultado obtido:** preenchido durante a execução.
+
+**Exemplo:**
+
+| ID   | Objetivo                               | Pré-condição       | Passos                                                                         | Resultado Esperado           |
+| ---- | -------------------------------------- | ------------------ | ------------------------------------------------------------------------------ | ---------------------------- |
+| CT01 | Validar login com credenciais corretas | Usuário cadastrado | 1. Abrir página de login  2. Inserir usuário/senha válidos  3. Clicar "Entrar" | Sistema acessado com sucesso |
+
+**Como fazer:**
+
+1. Ler os requisitos e funcionalidades.
+2. Criar casos cobrindo **caminhos felizes** e **cenários de erro**.
+3. Especificar bem os passos e resultados.
+
+---
+
+///
+
+# Explicação: Derivação de Casos de Teste a partir de Casos de Uso
+
+Vou explicar passo a passo o processo que foi realizado para derivar casos de teste a partir de um caso de uso:
+
+## Parte 1 - Identificação dos Cenários
+
+O caso de uso em questão é o "Cadastrar Usuário" (slide 25 da aula). Para testá-lo, identificamos dois cenários principais:
+
+1. **Cenário 1 - Fluxo Principal**: O caminho ideal onde tudo ocorre como esperado
+   - Usuário preenche todos os campos corretamente
+   - E-mail informado não está cadastrado
+   - Sistema cadastra o usuário com sucesso
+
+2. **Cenário 2 - Fluxo Alternativo 1**: Um caminho alternativo onde ocorre um desvio
+   - Usuário preenche todos os campos
+   - Mas o e-mail informado JÁ está cadastrado
+   - Sistema deve detectar isso e mostrar mensagem de erro
+
+## Parte 2 - Derivação dos Casos de Teste
+
+A partir desses cenários, foram criados dois casos de teste (CT):
+
+### CT1 - Cadastro bem-sucedido
+- **Dados de entrada**: Todos válidos (v)
+  - Nome: válido
+  - Sobrenome: válido
+  - E-mail: válido e não cadastrado
+  - Telefone: válido
+- **Resultado esperado**: Cadastro realizado com sucesso
+
+### CT2 - Tentativa com e-mail já cadastrado
+- **Dados de entrada**: E-mail inválido (i) - porque já está cadastrado
+  - Nome: válido
+  - Sobrenome: válido
+  - E-mail: já cadastrado (inválido para novo cadastro)
+  - Telefone: válido
+- **Resultado esperado**: Sistema exibe mensagem de erro específica e pede para corrigir
+
+## Notações usadas:
+- **v**: valor informado é válido
+- **i**: valor informado é inválido
+- **CTX**: Caso de Teste X (onde X é número sequencial)
+
+Esta abordagem é muito útil porque:
+1. Cobre tanto o fluxo principal quanto alternativos
+2. Especifica claramente o que é válido/inválido
+3. Define resultados esperados precisos
+4. Permite verificar se o sistema se comporta conforme especificado
+
+Você poderia expandir isso criando mais CTs para outros fluxos alternativos (como campos obrigatórios não preenchidos, formatos inválidos, etc.).
